@@ -122,7 +122,7 @@ public class RR implements Scheduler
         {
             Scanner sc = new Scanner(new File("jobs/jobs.txt"));
             int count = 0;
-            while(sc.hasNext())
+            while(sc.hasNext() && count < numJobs)
             {
                 String job = sc.nextLine();
                 jobs.add(job);

@@ -33,6 +33,7 @@ public class SJF implements Scheduler
     {
         int time = 0;
         ArrayList<Integer> stops = new ArrayList<>();
+        ArrayList<String> jobs = new ArrayList<>();
         while(!map.isEmpty())
         {
             int min = map.entrySet().stream().min(Map.Entry.comparingByValue()).get().getValue();
@@ -46,9 +47,7 @@ public class SJF implements Scheduler
                 }
             }
             map.remove(job);
-            System.out.println(job + "\n"
-                    + " start: " + time + "\n"
-                    + "   end: " + (time + min));
+            jobs.add(job);
             time += min;
             stops.add(time);
         }
@@ -58,7 +57,61 @@ public class SJF implements Scheduler
             total += stops.get(i);
         }
         double turnAround = total / numJobs;
+        printTable(stops, jobs);
         return turnAround;
+    }
+    
+    //**************************************************************************
+    // Function : printTable()
+    // Purpose  : Helper function to print out scheduling table
+    //**************************************************************************
+    private void printTable(ArrayList<Integer> stops, ArrayList<String> jobs)
+    {
+        for(int i = 0; i < stops.size(); ++i)
+        {
+            if(i < stops.size() - 1)
+            {
+                System.out.print("+-------");
+            }
+            else
+            {
+                System.out.println("+-------+");
+            }
+        }
+        for(int i = 0; i < jobs.size(); ++i)
+        {
+            if(i < jobs.size() - 1)
+            {
+                System.out.printf("|%6s%1s", jobs.get(i), "");
+            }
+            else
+            {
+                System.out.printf("|%6s%1s|\n", jobs.get(i), "");
+            }
+        }
+        for(int i = 0; i < stops.size(); ++i)
+        {
+            if(i < stops.size() - 1)
+            {
+                System.out.print("+-------");
+            }
+            else
+            {
+                System.out.println("+-------+");
+            }
+        }
+        System.out.print("0");
+        for(int i = 0; i < stops.size(); ++i)
+        {
+            if(i < stops.size() - 1)
+            {
+                System.out.printf("%8s", stops.get(i));
+            }
+            else
+            {
+                System.out.printf("%8s\n", stops.get(i));
+            }
+        }
     }
     
     //**************************************************************************
@@ -72,7 +125,7 @@ public class SJF implements Scheduler
         {
             Scanner sc = new Scanner(new File("jobs/jobs.txt"));
             int count = 0;
-            while(sc.hasNext())
+            while(sc.hasNext() && count < numJobs)
             {
                 String job = sc.nextLine();
                 int runTime = Integer.parseInt(sc.nextLine());

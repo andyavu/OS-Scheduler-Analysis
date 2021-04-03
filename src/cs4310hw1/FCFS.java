@@ -37,19 +37,71 @@ public class FCFS implements Scheduler
         ArrayList<Integer> stops = new ArrayList<>();
         for(int i = 0; i < jobs.size(); ++i)
         {
-            System.out.println(jobs.get(i) + "\n"
-                    + " start: " + time + "\n"
-                    + "   end: " + (time + runTimes.get(i)));
             time += runTimes.get(i);
             stops.add(time);
         }
+        
         double total = 0;
         for(int i = 0; i < stops.size(); ++i)
         {
             total += stops.get(i);
         }
         double turnAround = total / numJobs;
+        printTable(stops);
         return turnAround;
+    }
+    
+    //**************************************************************************
+    // Function : printTable()
+    // Purpose  : Helper function to print out scheduling table
+    //**************************************************************************
+    private void printTable(ArrayList<Integer> stops)
+    {
+        for(int i = 0; i < stops.size(); ++i)
+        {
+            if(i < stops.size() - 1)
+            {
+                System.out.print("+-------");
+            }
+            else
+            {
+                System.out.println("+-------+");
+            }
+        }
+        for(int i = 0; i < jobs.size(); ++i)
+        {
+            if(i < jobs.size() - 1)
+            {
+                System.out.printf("|%6s%1s", jobs.get(i), "");
+            }
+            else
+            {
+                System.out.printf("|%6s%1s|\n", jobs.get(i), "");
+            }
+        }
+        for(int i = 0; i < stops.size(); ++i)
+        {
+            if(i < stops.size() - 1)
+            {
+                System.out.print("+-------");
+            }
+            else
+            {
+                System.out.println("+-------+");
+            }
+        }
+        System.out.print("0");
+        for(int i = 0; i < stops.size(); ++i)
+        {
+            if(i < stops.size() - 1)
+            {
+                System.out.printf("%8s", stops.get(i));
+            }
+            else
+            {
+                System.out.printf("%8s\n", stops.get(i));
+            }
+        }
     }
     
     //**************************************************************************
