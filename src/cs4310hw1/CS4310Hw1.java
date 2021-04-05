@@ -37,28 +37,19 @@ public class CS4310Hw1
                 slice = sc.nextInt();
             }
             
-            System.out.print("Enter number of jobs (5, 10, or 15): ");
+            System.out.print("Enter number of jobs (1 to 30): ");
             int jobs = sc.nextInt();
             
             switch(scheduler)
             {
                 case 1:
                     FCFS fcfs = new FCFS(jobs);
-                    System.out.println();
-                    System.out.println("Turnaround time: " + fcfs.run());
-                    System.out.println();
                     break;
                 case 2:
                     SJF sjf = new SJF(jobs);
-                    System.out.println();
-                    System.out.println("Turnaround time: " + sjf.run());
-                    System.out.println();
                     break;
                 case 3:
                     RR rr = new RR(jobs, slice);
-                    System.out.println();
-                    System.out.println("Turnaround time: " + rr.run());
-                    System.out.println();
                     break;
                 default:
                     System.out.println("\nInvalid input.\n");

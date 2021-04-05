@@ -14,14 +14,41 @@ import java.io.*;
 public class SJF implements Scheduler
 {
     private int numJobs;
-    private HashMap<String, Integer> map;
+    private Hashtable<String, Integer> map;
     
     public SJF(int numJobs)
     {
         this.numJobs = numJobs;
-        map = new HashMap<>();
+        map = new Hashtable<>();
         
         read();
+        System.out.println("Turnaround time: " + run() + "\n");
+    }
+    
+    //**************************************************************************
+    // Function : read()
+    // Purpose  : Reads data from jobs file based on the number of jobs the user 
+    //            has selected
+    //**************************************************************************
+    public void read()
+    {
+        try
+        {
+            Scanner sc = new Scanner(new File("jobs/jobs.txt"));
+            int count = 0;
+            while(sc.hasNext() && count < numJobs)
+            {
+                String job = sc.nextLine();
+                int runTime = Integer.parseInt(sc.nextLine());
+                map.put(job, runTime);
+                ++count;
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("SJF.run()");
+            System.out.println(e.toString());
+        }
     }
     
     //**************************************************************************
@@ -67,6 +94,7 @@ public class SJF implements Scheduler
     //**************************************************************************
     private void printTable(ArrayList<Integer> stops, ArrayList<String> jobs)
     {
+        System.out.println();
         for(int i = 0; i < stops.size(); ++i)
         {
             if(i < stops.size() - 1)
@@ -111,32 +139,6 @@ public class SJF implements Scheduler
             {
                 System.out.printf("%8s\n", stops.get(i));
             }
-        }
-    }
-    
-    //**************************************************************************
-    // Function : read()
-    // Purpose  : Reads data from jobs file based on the number of jobs the user 
-    //            has selected
-    //**************************************************************************
-    public void read()
-    {
-        try
-        {
-            Scanner sc = new Scanner(new File("jobs/jobs.txt"));
-            int count = 0;
-            while(sc.hasNext() && count < numJobs)
-            {
-                String job = sc.nextLine();
-                int runTime = Integer.parseInt(sc.nextLine());
-                map.put(job, runTime);
-                ++count;
-            }
-        }
-        catch(Exception e)
-        {
-            System.out.println("SJF.run()");
-            System.out.println(e.toString());
         }
     }
 }
