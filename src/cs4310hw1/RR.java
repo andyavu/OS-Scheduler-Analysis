@@ -16,14 +16,14 @@ public class RR implements Scheduler
     private int numJobs;
     private int slice;
     private ArrayList<String> jobs;
-    private ArrayList<Integer> runTimes;
+    private ArrayList<Integer> runtimes;
     
     public RR(int numJobs, int slice)
     {
         this.numJobs = numJobs;
         this.slice = slice;
         jobs = new ArrayList<>();
-        runTimes = new ArrayList<>();
+        runtimes = new ArrayList<>();
         
         read();
     }
@@ -41,31 +41,31 @@ public class RR implements Scheduler
         {
             for(int i = 0; i < jobs.size(); ++i)
             {
-                if(runTimes.get(i) - slice > 0)
+                if(runtimes.get(i) - slice > 0)
                 {
                     System.out.println(jobs.get(i) + "\n"
                     + " start: " + time + "\n"
                     + "   end: " + (time + slice));
                     time += slice;
-                    runTimes.set(i, runTimes.get(i) - slice);
+                    runtimes.set(i, runtimes.get(i) - slice);
                 }
                 else
                 {
                     System.out.println(jobs.get(i) + "\n"
                     + " start: " + time + "\n"
-                    + "   end: " + (time + runTimes.get(i)));
-                    time += runTimes.get(i);
+                    + "   end: " + (time + runtimes.get(i)));
+                    time += runtimes.get(i);
                     stops.add(time);
-                    runTimes.set(i, 0);
+                    runtimes.set(i, 0);
                 }
             }
-            while(containsCompletedJob(runTimes))
+            while(containsCompletedJob(runtimes))
             {
-                if(getCompletedJob(runTimes) != -1)
+                if(getCompletedJob(runtimes) != -1)
                 {
-                    int index = getCompletedJob(runTimes);
+                    int index = getCompletedJob(runtimes);
                     jobs.remove(index);
-                    runTimes.remove(index);
+                    runtimes.remove(index);
                 }
             }
         }
@@ -83,11 +83,11 @@ public class RR implements Scheduler
     // Purpose  : Helper function to check if list contains any jobs that are 
     //            completed
     //**************************************************************************
-    private boolean containsCompletedJob(ArrayList<Integer> runTimes)
+    private boolean containsCompletedJob(ArrayList<Integer> runtimes)
     {
-        for(int i = 0; i < runTimes.size(); ++i)
+        for(int i = 0; i < runtimes.size(); ++i)
         {
-            if(runTimes.get(i) == 0)
+            if(runtimes.get(i) == 0)
             {
                 return true;
             }
@@ -99,11 +99,11 @@ public class RR implements Scheduler
     // Function : getCompletedJob()
     // Purpose  : Helper function to get index of completed job
     //**************************************************************************
-    private int getCompletedJob(ArrayList<Integer> runTimes)
+    private int getCompletedJob(ArrayList<Integer> runtimes)
     {
-        for(int i = 0; i < runTimes.size(); ++i)
+        for(int i = 0; i < runtimes.size(); ++i)
         {
-            if(runTimes.get(i) == 0)
+            if(runtimes.get(i) == 0)
             {
                 return i;
             }
@@ -126,8 +126,8 @@ public class RR implements Scheduler
             {
                 String job = sc.nextLine();
                 jobs.add(job);
-                int runTime = Integer.parseInt(sc.nextLine());
-                runTimes.add(runTime);
+                int runtime = Integer.parseInt(sc.nextLine());
+                runtimes.add(runtime);
                 ++count;
             }
         }

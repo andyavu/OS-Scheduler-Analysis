@@ -15,13 +15,13 @@ public class FCFS implements Scheduler
 {
     private int numJobs;
     private ArrayList<String> jobs;
-    private ArrayList<Integer> runTimes;
+    private ArrayList<Integer> runtimes;
     
     public FCFS(int numJobs)
     {
         this.numJobs = numJobs;
         jobs = new ArrayList<>();
-        runTimes = new ArrayList<>();
+        runtimes = new ArrayList<>();
         
         read();
     }
@@ -35,9 +35,9 @@ public class FCFS implements Scheduler
     {
         int time = 0;
         ArrayList<Integer> stops = new ArrayList<>();
-        for(int i = 0; i < jobs.size(); ++i)
+        for(int i = 0; i < runtimes.size(); ++i)
         {
-            time += runTimes.get(i);
+            time += runtimes.get(i);
             stops.add(time);
         }
         
@@ -119,8 +119,8 @@ public class FCFS implements Scheduler
             {
                 String job = sc.nextLine();
                 jobs.add(job);
-                int runTime = Integer.parseInt(sc.nextLine());
-                runTimes.add(runTime);
+                int runtime = Integer.parseInt(sc.nextLine());
+                runtimes.add(runtime);
                 ++count;
             }
         }
