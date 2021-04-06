@@ -12,6 +12,8 @@ import java.util.*;
 
 public class CS4310Hw1 
 {
+    public static boolean analysis = false;
+    
     public static void main(String args[]) 
     {
         Scanner sc = new Scanner(System.in);
@@ -21,11 +23,12 @@ public class CS4310Hw1
             System.out.print("1.) First-Come-First-Serve\n"
                            + "2.) Shortest-Job-First\n"
                            + "3.) Round-Robin\n"
-                           + "4.) Quit program\n"
+                           + "4.) Performance analysis\n"
+                           + "5.) Quit program\n"
                            + "Enter command: ");
             int scheduler = sc.nextInt();
             
-            if(scheduler == 4)
+            if(scheduler == 5)
             {
                 break;
             }
@@ -62,6 +65,14 @@ public class CS4310Hw1
                     rr.run();
                     rr.printTable();
                     System.out.println("Turnaround time: " + rr.getTurnaround() + "\n");
+                    break;
+                case 4:
+                    analysis = true;
+                    System.out.print("Enter number of trials: ");
+                    int trials = sc.nextInt();
+                    Analysis a = new Analysis(jobs, trials);
+                    a.run();
+                    a.analyze();
                     break;
                 default:
                     System.out.println("\nInvalid input.\n");

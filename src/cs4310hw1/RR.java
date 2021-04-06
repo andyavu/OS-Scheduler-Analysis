@@ -44,7 +44,15 @@ public class RR implements Scheduler
     {
         try
         {
-            Scanner sc = new Scanner(new File("jobs/jobs.txt"));
+            Scanner sc;
+            if(CS4310Hw1.analysis)
+            {
+                sc = new Scanner(new File("jobs/jobs_analysis.txt"));
+            }
+            else
+            {
+                sc = new Scanner(new File("jobs/jobs.txt"));
+            }
             int count = 0;
             while(sc.hasNext() && count < numJobs)
             {
@@ -54,6 +62,7 @@ public class RR implements Scheduler
                 runtimes.add(runtime);
                 ++count;
             }
+            sc.close();
         }
         catch(Exception e)
         {
