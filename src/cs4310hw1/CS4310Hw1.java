@@ -3,7 +3,7 @@
 // Project     : Project 1
 // Course      : CS 4310
 // File        : CS4310Hw1.java
-// Description : Simulating Job Scheduler and Performance Analysis
+// Description : Simulates job scheduling algorithm and does performance analysis
 //******************************************************************************
 
 package cs4310hw1;
@@ -44,12 +44,24 @@ public class CS4310Hw1
             {
                 case 1:
                     FCFS fcfs = new FCFS(jobs);
+                    fcfs.read();
+                    fcfs.run();
+                    fcfs.printTable();
+                    System.out.println("Turnaround time: " + fcfs.getTurnaround() + "\n");
                     break;
                 case 2:
                     SJF sjf = new SJF(jobs);
+                    sjf.read();
+                    sjf.run();
+                    sjf.printTable();
+                    System.out.println("Turnaround time: " + sjf.getTurnaround() + "\n");
                     break;
                 case 3:
                     RR rr = new RR(jobs, slice);
+                    rr.read();
+                    rr.run();
+                    rr.printTable();
+                    System.out.println("Turnaround time: " + rr.getTurnaround() + "\n");
                     break;
                 default:
                     System.out.println("\nInvalid input.\n");

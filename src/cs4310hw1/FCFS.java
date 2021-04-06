@@ -3,7 +3,7 @@
 // Project     : Project 1
 // Course      : CS 4310
 // File        : FCFS.java
-// Description : First-Come-FIrst-Serve (FCFS)
+// Description : First-Come-FIrst-Serve
 //******************************************************************************
 
 package cs4310hw1;
@@ -16,15 +16,16 @@ public class FCFS implements Scheduler
     private int numJobs;
     private ArrayList<String> jobs;
     private ArrayList<Integer> runtimes;
+    private ArrayList<Integer> stops;
+    private double turnaround;
     
     public FCFS(int numJobs)
     {
         this.numJobs = numJobs;
         jobs = new ArrayList<>();
         runtimes = new ArrayList<>();
-        
-        read();
-        System.out.println("Turnaround time: " + run() + "\n");
+        stops = new ArrayList<>();
+        turnaround = 0;
     }
     
     //**************************************************************************
@@ -32,6 +33,7 @@ public class FCFS implements Scheduler
     // Purpose  : Reads data from jobs file based on the number of jobs the user 
     //            has selected
     //**************************************************************************
+    @Override
     public void read()
     {
         try
@@ -56,13 +58,12 @@ public class FCFS implements Scheduler
     
     //**************************************************************************
     // Function : run()
-    // Purpose  : Peforms FCFS scheduling algorithm and prints out start/end 
-    //            time for each job
+    // Purpose  : Peforms FCFS scheduling algorithm and calculates turnaround time
     //**************************************************************************
-    public double run()
+    @Override
+    public void run()
     {
         int time = 0;
-        ArrayList<Integer> stops = new ArrayList<>();
         for(int i = 0; i < runtimes.size(); ++i)
         {
             time += runtimes.get(i);
@@ -74,16 +75,15 @@ public class FCFS implements Scheduler
         {
             total += stops.get(i);
         }
-        double turnAround = total / numJobs;
-        printTable(stops);
-        return turnAround;
+        turnaround = total / numJobs;
     }
     
     //**************************************************************************
     // Function : printTable()
-    // Purpose  : Helper function to print out scheduling table
+    // Purpose  : Prints out formatted scheduling table with jobs and times
     //**************************************************************************
-    private void printTable(ArrayList<Integer> stops)
+    @Override
+    public void printTable()
     {
         System.out.println();
         for(int i = 0; i < stops.size(); ++i)
@@ -131,5 +131,15 @@ public class FCFS implements Scheduler
                 System.out.printf("%8s\n", stops.get(i));
             }
         }
+    }
+    
+    //**************************************************************************
+    // Function : getTurnaround()
+    // Purpose  : Returns turnaround time
+    //**************************************************************************
+    @Override
+    public double getTurnaround()
+    {
+        return turnaround;
     }
 }

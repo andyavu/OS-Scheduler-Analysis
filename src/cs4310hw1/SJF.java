@@ -3,7 +3,7 @@
 // Project     : Project 1
 // Course      : CS 4310
 // File        : SJF.java
-// Description : Shortest-Job-First (SJF)
+// Description : Shortest-Job-First
 //******************************************************************************
 
 package cs4310hw1;
@@ -15,14 +15,17 @@ public class SJF implements Scheduler
 {
     private int numJobs;
     private Hashtable<String, Integer> map;
+    private ArrayList<Integer> stops;
+    private ArrayList<String> jobs;
+    private double turnaround;
     
     public SJF(int numJobs)
     {
         this.numJobs = numJobs;
         map = new Hashtable<>();
-        
-        read();
-        System.out.println("Turnaround time: " + run() + "\n");
+        stops = new ArrayList<>();
+        jobs = new ArrayList<>();
+        turnaround = 0;
     }
     
     //**************************************************************************
@@ -30,6 +33,7 @@ public class SJF implements Scheduler
     // Purpose  : Reads data from jobs file based on the number of jobs the user 
     //            has selected
     //**************************************************************************
+    @Override
     public void read()
     {
         try
@@ -53,14 +57,12 @@ public class SJF implements Scheduler
     
     //**************************************************************************
     // Function : run()
-    // Purpose  : Peforms SJF scheduling algorithm and prints out start/end time
-    //            for each job
+    // Purpose  : Peforms SJF scheduling algorithm and calculates turnaround time
     //**************************************************************************
-    public double run()
+    @Override
+    public void run()
     {
         int time = 0;
-        ArrayList<Integer> stops = new ArrayList<>();
-        ArrayList<String> jobs = new ArrayList<>();
         while(!map.isEmpty())
         {
             int min = map.entrySet().stream().min(Map.Entry.comparingByValue()).get().getValue();
@@ -83,16 +85,15 @@ public class SJF implements Scheduler
         {
             total += stops.get(i);
         }
-        double turnAround = total / numJobs;
-        printTable(stops, jobs);
-        return turnAround;
+        turnaround = total / numJobs;
     }
     
     //**************************************************************************
     // Function : printTable()
-    // Purpose  : Helper function to print out scheduling table
+    // Purpose  : Prints out formatted scheduling table with jobs and times
     //**************************************************************************
-    private void printTable(ArrayList<Integer> stops, ArrayList<String> jobs)
+    @Override
+    public void printTable()
     {
         System.out.println();
         for(int i = 0; i < stops.size(); ++i)
@@ -140,5 +141,15 @@ public class SJF implements Scheduler
                 System.out.printf("%8s\n", stops.get(i));
             }
         }
+    }
+    
+    //**************************************************************************
+    // Function : getTurnaround()
+    // Purpose  : Returns turnaround time
+    //**************************************************************************
+    @Override
+    public double getTurnaround()
+    {
+        return turnaround;
     }
 }

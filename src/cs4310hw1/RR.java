@@ -17,6 +17,10 @@ public class RR implements Scheduler
     private int slice;
     private ArrayList<String> jobs;
     private ArrayList<Integer> runtimes;
+    private ArrayList<Integer> stops;
+    private ArrayList<String> slices;
+    private Hashtable<Integer, Integer> map;
+    private double turnaround;
     
     public RR(int numJobs, int slice)
     {
@@ -24,9 +28,10 @@ public class RR implements Scheduler
         this.slice = slice;
         jobs = new ArrayList<>();
         runtimes = new ArrayList<>();
-        
-        read();
-        System.out.println("Turnaround time: " + run() + "\n");
+        stops = new ArrayList<>();
+        slices = new ArrayList<>();
+        map = new Hashtable<>();
+        turnaround = 0;
     }
     
     //**************************************************************************
@@ -34,6 +39,7 @@ public class RR implements Scheduler
     // Purpose  : Reads data from jobs file based on the number of jobs the user 
     //            has selected
     //**************************************************************************
+    @Override
     public void read()
     {
         try
@@ -58,15 +64,12 @@ public class RR implements Scheduler
     
     //**************************************************************************
     // Function : run()
-    // Purpose  : Peforms RR scheduling algorithm and prints out start/end time
-    //            for each job
+    // Purpose  : Peforms RR scheduling algorithm and calculates turnaround time
     //**************************************************************************
-    public double run()
+    @Override
+    public void run()
     {
         int time = 0;
-        ArrayList<Integer> stops = new ArrayList<>();
-        ArrayList<String> slices = new ArrayList<>();
-        Hashtable<Integer, Integer> map = new Hashtable<>();
         while(!jobs.isEmpty())
         {
             for(int i = 0; i < jobs.size(); ++i)
@@ -101,16 +104,15 @@ public class RR implements Scheduler
         {
             total += stops.get(i);
         }
-        double turnAround = total / numJobs;
-        printTable(slices, map);
-        return turnAround;
+        turnaround = total / numJobs;
     }
     
     //**************************************************************************
     // Function : printTable()
-    // Purpose  : Helper function to print out scheduling table
+    // Purpose  : Prints out formatted scheduling table with jobs and times
     //**************************************************************************
-    private void printTable(ArrayList<String> slices, Hashtable<Integer, Integer> map)
+    @Override
+    public void printTable()
     {
         System.out.println();
         for(int i = 0; i < slices.size(); ++i)
@@ -159,6 +161,16 @@ public class RR implements Scheduler
             last = key;
         }
         System.out.println();
+    }
+    
+    //**************************************************************************
+    // Function : getTurnaround()
+    // Purpose  : Returns turnaround time
+    //**************************************************************************
+    @Override
+    public double getTurnaround()
+    {
+        return turnaround;
     }
     
     //**************************************************************************
