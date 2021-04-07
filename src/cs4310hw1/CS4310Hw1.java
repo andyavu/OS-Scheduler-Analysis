@@ -49,21 +49,21 @@ public class CS4310Hw1
                     FCFS fcfs = new FCFS(jobs);
                     fcfs.read();
                     fcfs.run();
-                    fcfs.printTable();
+                    fcfs.GanttChart();
                     System.out.println("Turnaround time: " + fcfs.getTurnaround() + "\n");
                     break;
                 case 2:
                     SJF sjf = new SJF(jobs);
                     sjf.read();
                     sjf.run();
-                    sjf.printTable();
+                    sjf.GanttChart();
                     System.out.println("Turnaround time: " + sjf.getTurnaround() + "\n");
                     break;
                 case 3:
                     RR rr = new RR(jobs, slice);
                     rr.read();
                     rr.run();
-                    rr.printTable();
+                    rr.GanttChart();
                     System.out.println("Turnaround time: " + rr.getTurnaround() + "\n");
                     break;
                 case 4:

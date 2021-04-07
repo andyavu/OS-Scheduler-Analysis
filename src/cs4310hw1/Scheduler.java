@@ -12,6 +12,6 @@ public interface Scheduler
 {
     public void read();             // reads n jobs from jobs.txt and stores info in appropriate data structure
     public void run();              // runs scheduling algorithm and calculates turnaround time
-    public void printTable();       // prints scheudling table
+    public void GanttChart();       // prints Gantt chart
     public double getTurnaround();  // returns turnaround time
 }

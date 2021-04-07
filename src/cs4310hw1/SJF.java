@@ -14,7 +14,7 @@ import java.io.*;
 public class SJF implements Scheduler
 {
     private int numJobs;
-    private Hashtable<String, Integer> map;
+    private HashMap<String, Integer> map;
     private ArrayList<Integer> stops;
     private ArrayList<String> jobs;
     private double turnaround;
@@ -22,7 +22,7 @@ public class SJF implements Scheduler
     public SJF(int numJobs)
     {
         this.numJobs = numJobs;
-        map = new Hashtable<>();
+        map = new HashMap<>();
         stops = new ArrayList<>();
         jobs = new ArrayList<>();
         turnaround = 0;
@@ -41,11 +41,11 @@ public class SJF implements Scheduler
             Scanner sc;
             if(CS4310Hw1.analysis)
             {
-                sc = new Scanner(new File("jobs/jobs_analysis.txt"));
+                sc = new Scanner(new File("jobs/job_analysis.txt"));
             }
             else
             {
-                sc = new Scanner(new File("jobs/jobs.txt"));
+                sc = new Scanner(new File("jobs/job.txt"));
             }
             int count = 0;
             while(sc.hasNext() && count < numJobs)
@@ -98,11 +98,11 @@ public class SJF implements Scheduler
     }
     
     //**************************************************************************
-    // Function : printTable()
-    // Purpose  : Prints out formatted scheduling table with jobs and times
+    // Function : GanttChart()
+    // Purpose  : Prints out Gantt chart with jobs and times
     //**************************************************************************
     @Override
-    public void printTable()
+    public void GanttChart()
     {
         System.out.println();
         for(int i = 0; i < stops.size(); ++i)

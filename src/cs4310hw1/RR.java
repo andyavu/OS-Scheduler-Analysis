@@ -47,11 +47,11 @@ public class RR implements Scheduler
             Scanner sc;
             if(CS4310Hw1.analysis)
             {
-                sc = new Scanner(new File("jobs/jobs_analysis.txt"));
+                sc = new Scanner(new File("jobs/job_analysis.txt"));
             }
             else
             {
-                sc = new Scanner(new File("jobs/jobs.txt"));
+                sc = new Scanner(new File("jobs/job.txt"));
             }
             int count = 0;
             while(sc.hasNext() && count < numJobs)
@@ -117,11 +117,11 @@ public class RR implements Scheduler
     }
     
     //**************************************************************************
-    // Function : printTable()
-    // Purpose  : Prints out formatted scheduling table with jobs and times
+    // Function : GanttChart()
+    // Purpose  : Prints out Gantt chart with jobs and times
     //**************************************************************************
     @Override
-    public void printTable()
+    public void GanttChart()
     {
         System.out.println();
         for(int i = 0; i < slices.size(); ++i)

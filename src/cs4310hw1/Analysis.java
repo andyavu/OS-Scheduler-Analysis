@@ -39,7 +39,7 @@ public class Analysis
     {
         try
         {
-            FileWriter fw = new FileWriter("jobs/jobs_analysis.txt");
+            FileWriter fw = new FileWriter("jobs/job_analysis.txt");
             Random r = new Random();
             for(int i = 1; i <= numJobs; ++i)
             {
